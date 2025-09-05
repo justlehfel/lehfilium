@@ -8,8 +8,9 @@ namespace LoveChecker
     {
         private TextBox name1TextBox;
         private TextBox name2TextBox;
-        private Button calculateButton;
+        private RoundButton calculateButton;
         private Label resultLabel;
+        private Random random = new Random();
 
         public Form1()
         {
@@ -20,11 +21,11 @@ namespace LoveChecker
         private void InitializeLoveCheckerControls()
         {
             // Create and configure controls
-            this.Text = "Love Compatibility Checker";
+            this.Text = "💖 Love-O-Meter 💖";
             name1TextBox = new TextBox { Location = new Point(10, 10), Width = 200, Text = "Enter first name" };
             name2TextBox = new TextBox { Location = new Point(10, 40), Width = 200, Text = "Enter second name" };
-            calculateButton = new Button { Text = "Calculate", Location = new Point(10, 70) };
-            resultLabel = new Label { Text = "Result: ", Location = new Point(10, 110), Width = 200 };
+            calculateButton = new RoundButton { Text = "❤️", Location = new Point(80, 70), Width = 80, Height = 80, Font = new Font("Segoe UI Emoji", 24) };
+            resultLabel = new Label { Text = "Enter two names to find out!", Location = new Point(10, 160), Width = 240, Font = new Font("Arial", 12, FontStyle.Bold) };
 
             // Add controls to the form
             this.Controls.Add(name1TextBox);
@@ -38,30 +39,30 @@ namespace LoveChecker
 
         private void CalculateButton_Click(object sender, EventArgs e)
         {
-            string name1 = name1TextBox.Text;
-            string name2 = name2TextBox.Text;
+            string name1 = name1TextBox.Text.Trim();
+            string name2 = name2TextBox.Text.Trim();
 
-            if (string.IsNullOrWhiteSpace(name1) || string.IsNullOrWhiteSpace(name2) || name1 == "Enter first name" || name2 == "Enter second name")
+            if (string.IsNullOrWhiteSpace(name1) || string.IsNullOrWhiteSpace(name2) || name1.ToLower() == "enter first name" || name2.ToLower() == "enter second name")
             {
-                MessageBox.Show("Please enter both names.");
+                MessageBox.Show("Please enter both names.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            int sum1 = 0;
-            foreach (char c in name1)
+            int compatibility;
+
+            string lowerName1 = name1.ToLower();
+            string lowerName2 = name2.ToLower();
+
+            if ((lowerName1 == "thomas" && lowerName2 == "alana") || (lowerName1 == "alana" && lowerName2 == "thomas"))
             {
-                sum1 += (int)c;
+                compatibility = 100;
+            }
+            else
+            {
+                compatibility = random.Next(0, 101);
             }
 
-            int sum2 = 0;
-            foreach (char c in name2)
-            {
-                sum2 += (int)c;
-            }
-
-            int compatibility = (sum1 + sum2) % 101;
-
-            resultLabel.Text = $"Compatibility: {compatibility}%";
+            resultLabel.Text = $"💖 Compatibility: {compatibility}% 💖";
         }
     }
 }

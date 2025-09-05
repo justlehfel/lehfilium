@@ -1,0 +1,7 @@
+.vs/**/*
+LoveChecker/.vs/**/*
+LoveChecker/bin/**/*
+LoveChecker/obj/**/*
+LoveChecker.Library/.vs/**/*
+LoveChecker.Library/bin/**/*
+LoveChecker.Library/obj/**/*

@@ -6,6 +6,7 @@ namespace LoveChecker
 {
     public partial class Form1 : Form
     {
+        private TableLayoutPanel tableLayoutPanel;
         private TextBox name1TextBox;
         private TextBox name2TextBox;
         private RoundButton calculateButton;
@@ -20,18 +21,36 @@ namespace LoveChecker
 
         private void InitializeLoveCheckerControls()
         {
-            // Create and configure controls
             this.Text = "💖 Love-O-Meter 💖";
-            name1TextBox = new TextBox { Location = new Point(10, 10), Width = 200, Text = "Enter first name" };
-            name2TextBox = new TextBox { Location = new Point(10, 40), Width = 200, Text = "Enter second name" };
-            calculateButton = new RoundButton { Text = "❤️", Location = new Point(80, 70), Width = 80, Height = 80, Font = new Font("Segoe UI Emoji", 24) };
-            resultLabel = new Label { Text = "Enter two names to find out!", Location = new Point(10, 160), Width = 240, Font = new Font("Arial", 12, FontStyle.Bold) };
+            this.Size = new Size(400, 500); // Set a default size
 
-            // Add controls to the form
-            this.Controls.Add(name1TextBox);
-            this.Controls.Add(name2TextBox);
-            this.Controls.Add(calculateButton);
-            this.Controls.Add(resultLabel);
+            // Create the TableLayoutPanel
+            tableLayoutPanel = new TableLayoutPanel
+            {
+                Dock = DockStyle.Fill,
+                ColumnCount = 1,
+                RowCount = 4,
+            };
+            tableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
+            tableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
+            tableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 40F));
+            tableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
+
+            // Create and configure controls
+            name1TextBox = new TextBox { Dock = DockStyle.Fill, Font = new Font("Arial", 18, FontStyle.Bold), TextAlign = HorizontalAlignment.Center, Text = "Enter first name" };
+            name2TextBox = new TextBox { Dock = DockStyle.Fill, Font = new Font("Arial", 18, FontStyle.Bold), TextAlign = HorizontalAlignment.Center, Text = "Enter second name" };
+            calculateButton = new RoundButton { Dock = DockStyle.Fill, Text = "❤️", Font = new Font("Segoe UI Emoji", 48), FlatStyle = FlatStyle.Flat };
+            calculateButton.FlatAppearance.BorderSize = 0;
+            resultLabel = new Label { Dock = DockStyle.Fill, Text = "Enter two names to find out!", Font = new Font("Arial", 16, FontStyle.Bold), TextAlign = ContentAlignment.MiddleCenter };
+
+            // Add controls to the TableLayoutPanel
+            tableLayoutPanel.Controls.Add(name1TextBox, 0, 0);
+            tableLayoutPanel.Controls.Add(name2TextBox, 0, 1);
+            tableLayoutPanel.Controls.Add(calculateButton, 0, 2);
+            tableLayoutPanel.Controls.Add(resultLabel, 0, 3);
+
+            // Add the TableLayoutPanel to the form
+            this.Controls.Add(tableLayoutPanel);
 
             // Attach event handler
             calculateButton.Click += CalculateButton_Click;
